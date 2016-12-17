@@ -1,0 +1,85 @@
+---------------- Controle de Acesso - Anotações ------------------------------
+
+---> Controle de Acesso -> PRIVATE
+	Faz com fique visível apenas dentro daquele lugar, sem que seja acessado por outros (classes, etc).
+	É de costume que quase todos os métodos sejam public e que os atributos sejam private.
+
+---> GETTERS e SETTERS 
+	Serve para acessar uma informação em outra classe protegida com o private.
+	Ex:
+	class Conta {
+		private double saldo;
+
+	//meio de acessar através de outra classe é chamar o método a seguir:
+		public double pegaSaldo(){
+			return this.saldo;
+		}
+
+		public double alteraSaldo(double valor){
+			this.saldo += valor;
+
+	OBS: evitar criar muitos pois é má prática, portanto só criar se tiver real necessidade
+
+
+---> CONSTRUTORES
+	Sempre quando usamos a palavra chave new, chamamos o construtor da classe para construir o objeto.
+	Deve sempre possuir o mesmo nome da classe, porém com () na frente.
+	Necessário utilizar quando for necessário informar algum atributo logo de início para criar um objeto.
+	Ex:
+	class Conta{
+		String titular;
+	
+		Conta(String titular){
+			this.titular = titulas;
+		}
+	}
+	class Testando{
+		Conta Cliente1 = new Conta("Eduardo");
+	}
+
+
+---> Controle de Acesso -> STATIC
+	Static é usado para tornar uma variável única e acessada diretamente pela classe, sem necessidade de instanciar um objeto para acessa-la.
+	Essa variável declara como static passará a pertencer a CLASSE e não a objetos. Todos os objetos terão acesso a essa variável, mas ela será fixa e da classe,
+	não irá variar dependendo do objeto.
+	
+	Ex:
+	class Conta{
+		public static n_contas;
+		n_contas = 20;
+	}
+	class testando{
+		int numContas = Conta.n_contas;
+		//Se não fosse estático, teria que dizer a qual objeto essa variável pertence.
+	}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
