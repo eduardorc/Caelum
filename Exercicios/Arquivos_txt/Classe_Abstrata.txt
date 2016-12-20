@@ -1,0 +1,33 @@
+------------------- CLASSE ABSTRATA -------------------------
+
+--->CLASSES ABSTRATAS	
+	Em uma empresa existem Funcionários, porém, cada funcionário irá ocupar um tipo de cargo, sendo que nenhum funcionário pode ser simplesmente funcionário.
+	Por isso, ao criar uma classe funcionário que servirá para polimorfismo pode-se declarar ela como ABSTRACT para que assim não seja possível instancia-la.
+
+	Ex:
+	abstract class Funcionario{
+		protected double salario;
+		
+		public double getBonificao(){
+			return this.salario*1,2;
+		}
+	}
+	
+	Assim, será possível instanciar as subclasses (gerente, secretária, etc), porém não será possível criar um objeto funcionário.
+
+--->MÉTODOS ABSTRATOS
+
+	O intuito de escrever um método como abstrato é obrigar todas as classes filhos a terem esse método, porém cada classe filha terá de escrever o que o método
+	fará de acordo com a necessidade da classe. Exemplo é o método getBonificacao. Eu declaro ele como abstrato na classe funcionário e assim obrigo que cada 
+	subclasse declare o método e diga qual as caracteristicas dele para a sua necessidade.
+	
+	Ex:
+	abstract class Funcionario{
+		abstract double getBonificacao();
+	}
+	class Gerente extends Funcionario (){
+		double getBonificacao(){
+			return this.salario*1.2;
+		}
+	}
+
