@@ -1,0 +1,5 @@
+------------------ EXCEÇÕES E CONTROLE DE ERROS -----------------
+
+	Criando e controlando os erros que serão gerados da utilização do software.
+
+	
