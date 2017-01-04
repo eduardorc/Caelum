@@ -1,9 +1,9 @@
 package eduardo.banco;
 
+//import eduardo.banco.funcionarios.*;
+
 public class testabanco {
 	
-	public static void main(String[] args){
-		
-	
-	}
 }
+	
+
