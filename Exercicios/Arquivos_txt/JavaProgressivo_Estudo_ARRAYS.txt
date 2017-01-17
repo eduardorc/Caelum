@@ -1,0 +1,78 @@
+-------- ARRAYS - www.javaprogressivo.net ----------
+
+---- DECLARANDO ARRAYS EM JAVA
+	Sintaxe: 
+		tipo[] nome_do_array = new tipo[numero_de_elementos];
+		ou
+		tipo[] nome_do_array = {valor1, valor2, ..., valorn};
+		
+	Obs: Quando o array é iniciado sem informação, é automaticamente preenchido com 0.
+
+	Saber tamanho do array:
+		nomeArray.lenght
+	
+	Utilizando um valor específico:
+		nota[10] = 10.0;
+		float media = (nota[3]+nota[2])/2;
+		nota[5]++;
+
+	Exemplo de código:
+	import java.util.Scanner;
+
+	public class arrayTeste {
+    
+		public static void main(String[] args){
+            int[] nota = new int[3];
+            Scanner entrada = new Scanner(System.in);
+            
+            //recebendo os números
+            for(int indice=0 ; indice < 3 ; indice++){
+                System.out.print("\nEntre com o número " + (indice+1) + ": ");
+                nota[indice] = entrada.nextInt();
+            }
+            
+            //exibindo os números
+            for(int indice=0 ; indice < 3 ; indice++){
+                System.out.printf("Número %d -> Valor armazenado: %d\n",indice+1, nota[indice]);
+            }
+        }
+
+
+	}
+	
+	
+---- PERCORRENDO O ARRAY EM JAVA (5 PRA CIMA) - FOR EACH
+
+	Sintaxe:
+		for (tipo variavel_do_tipo_do_seuArray : seuArray){
+			//código
+		}
+		
+		Ex: array de int -> for (int count : arrayInteiros){}
+
+		
+	Exemplo de código:
+	import java.util.Scanner;
+
+	public class forParaArray {
+    
+    public static void main(String[] args){
+            int[] numero = new int[5];
+            int soma=0;
+            Scanner entrada = new Scanner(System.in);
+            
+            for(int cont=0 ; cont< numero.length ; cont++){
+                System.out.print("Entre com o número "+(cont+1)+": ");
+                numero[cont]=entrada.nextInt();
+            }
+            
+            //exibindo e somando
+            for(int cont : numero){
+                soma += cont;
+            }
+            
+            System.out.println("A soma dos números que você digitou é "+soma);
+        }
+
+
+	}
