@@ -1,0 +1,83 @@
+-------- ARQUIVOS - www.javaprogressivo.net ----------
+
+---- FLUXO (STREAM) - ENTRADA(IN) E SAÍDA(OUT) DE DADOS
+		A leitura de um arquivo é feita de forma sequencial, já que é assim que as 
+	informações são armazenadas. Ao final de cada arquivo existe um "sinal" para
+	avisar que acaba alí.
+		O java trabalha com três tipos de objetos para fluxo de dados:
+			System.in (usado para receber dados)
+			System.out (usado para saída de dados)
+			System.err (controle de erros)
+	
+		Para trabalhar com arquivos será necessário a utilização de um pacote especial
+	chamado de java.io (io = in and out);
+		Documentação do java.io:
+			http://docs.oracle.com/javase/7/docs/api/java/io/package-summary.html
+
+
+---- LENDO CARACTERES, STRINGS E BYTES DE UM ARQUIVO EM JAVA
+	-> COMO LER CARACTERES DE UM ARQUIVO EM JAVA
+		Crie um arquivo "file.txt" e o coloque dentro das pastas src e bin.
+			Escreva qualquer coisa.
+		
+		Acessando o arquivo:
+			FileInputStream entrada = new FileInputStream("pastas_ata_arq/file.txt");
+		
+		Fazendo o java 'ler' o arquivo:
+			InputStreamReades entradaFormatada = new InputStreamReader(entrada);
+		
+		Exibindo o primeiro caracter:
+			int c = entradaFormatada.read();
+			System.out.println(c); //imprime o valor numérico referente ao texto
+			//para imprimir a letra, fazer casting em char.
+		
+		Lendo um texto:
+			No final do arquivo o read() retorna -1, então pode-se usar um looping
+			para ler um texto.
+			
+			while (c != -1){
+				System.out.println ( (char)c);
+				c = entradaFormatada.read();
+			}
+			
+---- LENDO STRINGS DE UM ARQUIVO EM JAVA
+		Para isso usaremos a classe BufferedReader que recebe como argumento um objetos	]
+	do tipo InputStreamReader e agrupa os caracteres até formar uma linha.
+
+	Código:
+		FileInputStream entrada = new FileInputStream("file.txt");
+		InputStreamReader entradaFormatada = new InputStreamReader(entrada);
+		//AQUI A PARTE NOVA:
+		BufferedReader entradaString = new BufferedReader(entradaFormatada);
+		
+		String linha = entradaString.readLine();
+		
+		while (linha != null){
+			Sytem.out.println (linha);
+			linha = entradaString.readLine();
+		}
+
+---- COMO LER BYTES DE UM ARQUIVO EM JAVA
+	
+	Código:
+		public static void main(String[] args) throws IOException{
+			InputStream entrada = new FileInputStream("file.txt");
+			int umByte = entrada.read();
+	    
+			while(umByte != -1){
+				System.out.print((char)umByte);
+				umByte = entrada.read();
+			}
+		}
+	
+		Como retorno irá mostrar o valor numérico daquele byte, se quiser o valor 
+	original usar o casting.
+
+	
+---- FECHANDO ARQUIVOS - O MÉTODO CLOSE()
+		Para fechar o arquivo e evitar o armazenamento de lixo, usa-se:
+			variavel.close();
+		
+	Ex: entrada.close();
+	
+
