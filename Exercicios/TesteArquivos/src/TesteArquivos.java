@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class Arquivo {
+public class TesteArquivos {
 
 	public static void main (String[] args) throws IOException{
 		Scanner leitura = new Scanner (System.in);
