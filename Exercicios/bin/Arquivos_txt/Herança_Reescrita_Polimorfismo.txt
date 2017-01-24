@@ -1,0 +1,75 @@
+--------------------- HERANÇA, REESCRITA E POLIMORFISMO ----------------
+---> HERANÇA
+	-Utilizada para que não seja necessário criar todos os atributos de novo de uma classe que poderia só herdar.
+	-Se existe uma classe funcionário com variáveis para nome, cpf, etc e é necessário criar uma classe para definir
+	gerentes sendo necessário os mesmo atributos e mais alguns, então usa-se a herança para não ter que gerar
+	todas aquelas variáveis de novo.
+	Ex:
+	class Funcionario{
+		protected int nome;
+	}
+	class Gerente extends Funcionario {
+		int senha;
+	}
+	class testando{
+		public static void main (string[] args){
+			Gerente gerente = new Gerente();
+			gerente.nome = Adalberto;
+	}
+
+
+	OBS: O protected fica entre o private e o public, ele permite que as subclasses (herdeiros) acessem ele também.
+
+
+--> REESCRITA DE MÉTODO
+	Quando é necessário que um método na classe super seja também utilizado na sub porém com alguma alteração, será feita uma reescrita de método. Porém, como é reescrito, caso o método na super seja alterado, também deverá ser alterado o método na sub para que continue sendo uma reescrita, então para isso utiliza-se a palavra chave super.
+
+	Ex:
+	class Funcionario{
+		...
+		public double getBonificao(){
+			return this.salario * 0,.10; //retorna 10% do valor do salário
+		}
+	}
+	class Gerente extends Funcionario{
+		...
+		public double getBonificao(){
+			return super.getBonificao() + 1000.0; // gerente recebe 10% + 1000 reais
+		}
+	}
+
+---> POLIMORFISMO
+	Poder de usar um mesmo métodos em vários outros.
+
+	EX:
+
+	public interface Carro{
+		public void acelerar();
+	}
+	public Ferrari implements Carro{
+		public void acelerar(){
+			System.out.println("Ferrari acelerando...");
+		}
+	}
+	public Fusca implemets Carro{
+		public void acelerar(){
+			System.out.println("Fusca tentando acelerar...");
+		}
+	}
+	Carro c = new Ferrari();
+	c.acelerar();//Vai acelear a ferrari, pois c é do tipo Ferrari
+	c = new Fusca();
+	c.acelerar();//Vai acelerar o fusca, pois c é do tipo Fusca.
+
+
+
+
+
+
+
+
+
+
+
+
+

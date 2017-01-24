@@ -1,0 +1,62 @@
+--------------- INTERFACES -------------------------
+	
+	Problema exemplo para introduzir o tópico:
+		Digamos que existe um sistema interno no banco e somente Gerente e Diretor podem acessar. 
+		- class SistemaInterno {
+			void login (Funcionario f){
+				....
+			}
+		}
+		Isso permitiria que qualquer funcionário tenha acesso e não somente diretor e gerente. Para que não seja necessário criar vários métodos, cada um
+		recebendo um tipo (Gerente, Diretor, etc), pode-se criar uma classe FuncionarioAutenticavel filho da classe Funcionario e essa assim gerar as subclasses
+		direto e gerente filhos de FuncionarioAutenticavel:
+			
+		class FuncionarioAutentificavel extends Funcionario{
+			public bolean autentica (int senha){
+				....
+			}
+		}
+
+		class Diretor extends FuncionarioAutenticavel{
+			.....
+		}
+
+	Porém, e se for necessário que os clientes também tenham acesso? Caso fosse criada a classe cliente como subclasse de FuncionarioAutenticavel, ele teria todas
+	as características de um funcionário, o que não seria agradável. Por isso utiliza-se INTERFACE para resolver o problema:
+
+---> INTERFACE
+	Interface é a maneira através da qual conversamos com um objeto. A interface expõe o que o objeto deve fazer, e não como ele faz, nem o que ele tem. Como ele
+	faz vai ser definido em uma implementação dessa interface.
+
+	class Gerente extends Funcionario implements Autenticavel{
+	
+		private int senha;
+		//etc
+		
+		public boolean autentica (int senha){
+			if (this.senha != senha){
+				return false;
+			}
+			return true;
+		}
+	}
+
+	O implements pode ser lido como "A cçasse Gerente se compromete a ser tratada como Autenticável, sendo obrigada a ter os métodos necessários, definidos
+	no contrato".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

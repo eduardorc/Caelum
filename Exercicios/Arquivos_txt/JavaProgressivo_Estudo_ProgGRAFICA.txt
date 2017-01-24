@@ -1,0 +1,62 @@
+-------- PROGRAMAÇÃO GRÁFICA - www.javaprogressivo.net ----------
+
+---- EXIBINDO MENSAGENS ATRAVÉS DAS CAIXAS DE DIÁLOGOS
+	
+	Importando:
+		import javax.swing.JOptionPane
+	
+	Exibindo mensagens nas caixas de diálogos:
+		JOptionPane.showMessageDialog ( posicaoCaixaDialogo, "String com o texto\n" );
+
+	Exemplo de código:
+	
+	import java.util.Scanner;
+	import javax.swing.JOptionPane;
+	
+	public class caixasDeTexto {
+		public static void main (String[] args){
+			String mensagem;
+			Scanner entrada = new Scanner (System.in);
+			
+			System.out.println ("Digite a msg a ser exibida:");
+			mensagem = entrada.nextlLne();
+			JOptionPane.showMessageDialog(null, mensagem);
+		}
+	}
+
+---- RECEBENDO DADOS DO USUÁRIO ATRAVÉS DAS CAIXAS DE DIÁLOGO
+	
+	Importando:
+		import javax.swing.JOptionPane
+	
+	Recebendo informações por caixa de diálogo:
+		String nome;
+		nome = JOptionPane.showInputDialog("Digite seu nome:");
+	
+	Exemplo Código:
+	
+		import javax.swing.JoptionPane;
+		
+		public class recebe_dados{
+			public static void main (String[] args){
+				String nome;
+				nome = JOptionPane.showInputDialog("Digite seu nome:");
+				JOptionPane.showMessageDialog(null, nome+", bem vindo a Java!");
+			}
+		}
+	
+
+---- CONVERTENDO STRINGS PARA INT, FLOAT E DOUBLE
+
+	Convertendo para int:
+		variavel = Integer.parseInt(valor.trim()); //.trim tira os espaços p evitar erro
+	
+	Convertendo para FLOAT
+		variavel = Float.parseFloat(numeroString);
+	
+	Convertendo para DOUBLE
+		variavel
+	
+	
+	
+	

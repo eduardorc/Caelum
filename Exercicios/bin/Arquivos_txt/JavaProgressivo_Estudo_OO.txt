@@ -1,0 +1,404 @@
+--------  ORIENTAÇÃO A OBJETOS - www.javaprogressivo.net ----------
+
+CLASSES são definições maiores das coisas e OBJETOS são elementos ou um tipo
+daquela classe.   (Ex: Classe = Felinos e Objeto = Gato)
+
+Ex:
+public class Aluno{ //Classe Aluno
+  Aluno Eduardo = new Aluno(); //objeto Eduardo - Eduardo é um aluno
+}
+
+--- MÉTODO PRINCIPAL
+public static void main (String[] args){}
+
+-> CONSTRUTOR: método de mesmo nome que a classe e tem funlão de especificar
+atributos necessários ao se criar um objeto daquela classe. Caso não seja
+necessário a atribuição de parâmetros, não é necessário ser declarado.
+  Ex:
+    public class Aluno{
+      String nome;
+      public void Aluno (String Nome){ // esse é o construtor
+          this.nome = nome;
+      }
+    }
+
+Quando for criar um obj do tipo Aluno, então deve-se mandar o nome:
+  Aluno Eduardo = new Aluno("Eduardo");
+
+
+---- AUTO REFERÊNCIA COM THIS
+	Quando usar this antes de uma variável dizemos que a referência é a uma
+variável daquela classe.
+  Ex:
+    public class Funcionario{
+      String nome;
+      public void setName (String nome){
+        this.nome = nome;
+      }
+    }
+
+
+---- MÉTODOS GET E SET
+	GET é usado para obter informações (normalmente retorna um valor)
+	SET é usado para definir valores (normalmente não retorna valor)
+	
+	Ex:
+		public class Func{
+			String nome;
+			public void setName (String nome){
+				this.nome = nome;
+			}
+			public String getName() {
+				return this.nome;
+			}
+		}
+
+	INVOCAR OS MÉTODOS SET E GET:
+		setName("Eduardo");
+		String Nome = getNome();
+		
+---- COMPOSIÇÃO - Trocando info entre objts
+		Composição se trata de instanciar uma classe/obj em outro(a) e tem como
+	utilidade para reutilizar dados sem ter que criar mais código para isso.
+
+
+---- UTILIZANDO CONSTANTES
+		O uso de constantes é importante devido ao fato de que uma constantes
+	pode vir a aparecer várias vezes, e se for necessário muda-la, dará 
+	trabalho.
+
+	Declaração:
+		final int maioridade = 18; //final transforma em constante
+
+		
+---- ENUM: MELHOR MANEIRA DE MANUSEAR CONSTANTES		
+		Enum é uma classe especial desenvolvida para tratar constantes.
+	Ex:
+	public enum Bebida{
+  
+		CocaCola(2.00),
+		Suco(1.50),
+		Agua(1.00);
+
+		private double preco;
+  
+		Bebida(double preco){
+		this.preco = preco;
+		}
+
+		public double getPreco(){
+		return this.preco;
+		}
+	}
+		
+
+---- STATIC - USANDO MEMBROS ESTÁTICOS EM JAVA
+		Quando definimos variáveis como static em uma classe, essa var será 
+	idêntica para todos os objetos da classe.
+	Ex: 
+		static tipo nomeDaVariavel -> static int total.
+
+	QUANDO USAR:
+	1 - Controle do número total de objetos
+		Declara um total como static para ser acessado em qlq objeto sempre
+		da mesma forma.
+		
+	2 - Compartilhamento de informações.	
+
+
+---- HERANÇA EM JAVA
+		Herança em java traat-se de criar uma classe usando uma outra já existente.
+		Ou seja, eu crio uma classe que herda as informações de outra e assim não
+	é necessário recriar variáveis ou coisas do tipo.
+	
+		Suponha que seja criada uma classe Funcionario e uma outra Gerente que herde
+	a classe Funcionario. Então, Funcionario será uma superclasse e Gerente uma
+	subclasse. Gerente herda Funcionário pq gerente também é um tipo de funcionário.
+
+	Declaração de herança:
+		public class Filha extends Pai{}
+		public class Gerente extends Funcionario{} //gerente é uma extensão de func.
+
+	OBS: o construtor da subclasse sempre invoca o construtor da superclasse.
+		
+	Exemplo:
+		public class Funcionario{
+			String nome;
+			
+			public Funcionario(String nome)	[
+				this.nome = nome;
+		}
+		public class Gerente extends Funcionario{
+			public void Gerente(){
+				System.out.prinln("Construtor chamará o construtor da superclass");
+			}
+		}
+
+---- OVERRIDE EM JAVA
+		Override é usado quando é necessário reescrever um método já existente, para isso
+	é necessário avisar ao java que aquilo é uma reescrita.
+		Ex: Quando a superclasse Pai tem um método para exibir o seu nome e temos uma
+	subclasse filha que também tem um método igual, o java irá exibir o nome do pai
+	e não da filha. Para que seja possível exibir o nome da filha basta colocar
+	um @Override antes do método na filha.
+		public class Pai{
+			public String nomePai;
+			public Pai(){
+				this.nomePai = "Neil";
+			}
+			
+			public void exibeNome(){
+				System.out.println("Nome do pai é '"+nomePai+"'");
+			}
+		}
+		public class Filha extends Pai{
+			public String nomeFilha;
+			public Filha(){
+				this.nomeFilha = "Carla";
+			}
+			
+			@Override // se não colocar, irá conflitar.
+			public void exibeNome(){
+				System.out.println("Nome do filha é '"+nomefilha+"'");
+			}
+		}
+
+
+---- SUPER: CHAMANDO O CONSTRUTOR DA SUPERCLASSE
+		Digamos que não queremos chamar o construtor da filha e da pai, queremos chamar
+	só o da filha. Para isso usamos o super para chamar o do pai
+
+	Ex:
+		public class Heranca{
+			public static void main (String[] args){		
+				Filha filha = new filha ("Mariazinha", "Neil");
+				filha.nome();
+			}
+		}
+		public class Pai {
+			public String nomePai;
+			public Pai(String nomePai){
+				this.nomePai=nomePai;
+			}
+   			public void nome(){
+				System.out.println("O nome do pai é '" + nomePai + "'.");
+			}
+		}
+		public class Filha extends Pai {
+			private String nomeFilha;
+    		public Filha(String nomeFilha, String nomePai){
+				super(nomePai);//Chama o construtor do pai
+				this.nomeFilha = nomeFilha;
+			}
+    		@Override
+			public void nome(){
+				System.out.println("O nome da filha é '" + this.nomeFilha + "', e do pai '"+nomePai+"'.");
+			}
+		}
+
+---- HERANÇA OU COMPOSIÇÃO?
+		A diferença básica entre os dois é que a Herança faz com que as duas classes
+	estejam MUITO ligadas, então mesmo que vc vá gerar algo simples, ele vai receber
+	tudo que tem na superclasse. Já a composição a ligação está apenas no que é passado.
+
+
+---- COMO COMPARAR OBJETOS - CLASSE ABSTRATA COMPARABLE E MÉTODO COMPARETO
+		Quando se trata de objetos não é possível simplesmente comparar já que além 
+	de termos inúmeras variáveis, elas podem não ser fácil de se comparar. 
+		Para comparar dois objetos iremos usar a classe Comparable e o método 
+	comparteTo(). O método pode retornar 3 valores: -1 se for menor, 0 se for igual
+	e 1 se for maior => X.compareTo(Y) //compara o obj X com o obj Y
+		Porém, quem dirá ao método o que ele deve comparar, será o programador.
+		A classe que será aplicada a comparação deverá implementar a classe comparable.
+	
+	EXEMPLO DE CÓDIGO:
+		public class Carro implements Comparable{
+			private int ano = 0;
+			private String nome;
+			
+			public Carro (int ano, String nome){
+				this.ano = ano;
+				this.nome = nome;
+			}
+			
+			public int compareTo(Object o){ //Esse método que irá comparar
+				Carro car = (Carro) o;//Cria uma variável do tipo carro e passa seu
+									  //valor para a variável o (casting Carro)
+									  
+				if (getAno() > car.getAno()){
+					return 1;
+				}else{
+					if (getAno() < car.getAno()){
+						return -1;
+					}else{
+						return 0;
+					 }
+				 }
+			}
+			
+			public int getAno(){
+				return this.ano;
+			}
+			public String getNome(){
+				return this.nome;
+			}
+		}
+	   
+----	PRIVATE, PUBLIC E PROTECTED: PROTEGENDO INFORMAÇÕES EM JAVA
+	
+	ATRIBUTOS PUBLIC: podem ser acessados por qualquer um e em qlq lugar;
+	ATRIBUTOS PRIVATE: Não podem ser acessados nem por subclasses, necessários
+					  usar getters e setters.
+	
+	ATRIBUTOS PROTECTED: Protegido de fora, porém pode ser acessado por subclasses.
+	
+	public int variavelLivre;
+	private int variavelPrivada;
+	protected int variavelProtegida;
+	
+
+---- A CLASSE OBJECT
+	Toda e qualquer classe em java é subclasse da Object.
+	
+	MÉTODOS DA CLASSE OBJECT:
+	
+	getClass() : Retorna informações sobre o obj, como package e noma da classe.
+	clone() : retorna uma referência de um objeto.
+	toString() : Retorna uma String com a package, nome da classe e um hexadecimal
+				 que representa o obj em questão.
+	equals(Object obj) : compara dois objetos e retorna true ou false.
+	hashCode() : Retorna um inteiro único de cada objeto, muito usado em collections.
+
+	
+	
+---- POLIMORFISMO EM JAVA
+		Polimorfismo é a capacidade que o Java nos dá de controlar todas as formas 
+	de uma maneira mais simples e geral, sem ter que se preocupar com cada objeto 
+	especificamente.
+	
+		Imagine que, todo ano, todos carros numa empresa tem um aumento.
+		A Ferrari teve aumento de 5%. o fusca terá aumento de 3% e o gol terá de 1%.
+	Note que, embora todos sejam "Carro", cada objeto terá que calcular seu aumento 
+	de forma diferente.
+
+		Não é na superclasse que se resolve, mas nas subclasses, criando o método 
+	'aumento()' em cada uma. Ou seja, vai criar vários métodos, e para fazer o 
+	aumento realmente ocorrer de maneira correta, é só invocar o método do 
+	objeto específico.
+	Então: objetoFerrari.aumento() é diferente de objetoFusca.aumento().
+	
+		Apenas invocamos, e todo objeto sabe exatamente o que fazer.
+
+		
+---- CLASSES ABSTRATAS
+		Classes abstratas são classes que não serão instanciados e não podem ser 
+	instanciadas (gerar objetos dela). Exemplo básico é a classe Funcionário.
+	Criamos ela mas não geramos nenhum obj, pois teremos vários tipos de funcionarios
+	e a partir deles (subclasses) que criaremos os objetos.
+		A declaração de métodos abtratos tem o intuito de mostrar os métodos somente. 
+	Quando for gera-los dentro das subclasses, é necessário usar o @Override.
+
+	Declaração:
+		public abstract class Animal(){...} //Classe
+		public abstract void som() {...} //Método
+
+
+---- INTERFACE EM JAVA
+		As interfaces em java como algo que faz a comunicação entre dois meios diferentes.
+		Em java, a interface nada mais é do que uma classe abstrata composta somente
+	por métodos abstratos. Ou seja, ela é só o molde de algo. O intuito dela é
+	que outras classes, baseadas nessa interface, implementem esses métodos para fins
+	específicos. Será uma espécie de comunicação entre meios.
+	
+	Ex: Em um restaurante o Cardápio é a interface, ou seja, o que faz a comunicação
+	entre os clientes e os cozinheiros. Os clientes veem apenas os pratos (métodos)
+	mas não sabem e nem querem saber como eles são produzidos.
+	
+	Declaração:
+		Ex:
+			public interface Matriz {
+				double Traco(Matriz m);
+				Matriz Nula(int linha, int coluna);
+				Matriz Trasposta (Matriz m);
+			}
+		//Foi implementado só o cabeçalho e os métodos, sem detalhes.
+	
+	IMPLEMANTANDO UMA CLASSE - IMPLEMENTS
+		Depois que a interface foi criada, usaremos ela para gerar as classes necessárias.
+	
+	Implementação:
+		public class minhaMatriz implements Matriz {...}
+	 
+	 Tudo que estiver na interface tem que estar, obrigatoriamente, em sua implementação.
+	e da mesma maneira.
+		
+	Ex:
+		public class minhaMatriz implements Matriz{
+			Matriz mat;
+			double traco;
+			
+			public double Traco(Matriz m){
+				//Implementação do método traço
+				return traco;
+			}
+			
+			public Matriz Nula (int linha, int coluna){
+				//zerando todos os elementos da matriz
+				return mat;
+			}
+			
+			public Matriz Transposta (Matriz m) {
+				//Gerando a transposta
+				return mat;
+		}
+	
+
+---- EXEMPLO DE POLIMORFIRMOS COM INTERFACES E SUBCLASSES
+
+--> zoo.java
+	public class zoo {
+		public static void main (String[] args) {
+			Vaca mimosa = new Vaca();
+			Gato bichano = new Gato();
+			Carneiro barnabe = new Carneiro();
+			
+			Animal bichos[] = {mimosa, bichano, barnabe};
+			
+			for(Animal animal : bichos){
+				System.out.println (animal.nome+" é da classe "
+				+animal.getClass().getName() +", tem "+animal.numeroPatas +
+				" patas e faz "+animal.som()+"\n");
+			}
+		}
+	}
+
+--> Animal.java
+	public abstract class Animal {
+		protected String nome;
+		protected int numeroPatas;
+		
+		public abstract void som();
+	}
+
+--> Vaca.java
+	public class Vaca extends Animal {
+		public Vaca(){
+			this.nome = "Mimosa";
+			this. numeroPatas = 4;
+		}
+		@Override
+		public void som(){
+			System.out.prinln("MUU");
+		}
+	}
+
+	//O mesmo para gato e carneiro.
+	
+	
+	
+
+
+	
+	
+	
+	

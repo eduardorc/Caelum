@@ -1,0 +1,252 @@
+-------- ARQUIVOS - www.javaprogressivo.net ----------
+
+---- FLUXO (STREAM) - ENTRADA(IN) E SAÍDA(OUT) DE DADOS
+		A leitura de um arquivo é feita de forma sequencial, já que é assim que as 
+	informações são armazenadas. Ao final de cada arquivo existe um "sinal" para
+	avisar que acaba alí.
+		O java trabalha com três tipos de objetos para fluxo de dados:
+			System.in (usado para receber dados)
+			System.out (usado para saída de dados)
+			System.err (controle de erros)
+	
+		Para trabalhar com arquivos será necessário a utilização de um pacote especial
+	chamado de java.io (io = in and out);
+		Documentação do java.io:
+			http://docs.oracle.com/javase/7/docs/api/java/io/package-summary.html
+
+
+---- LENDO CARACTERES, STRINGS E BYTES DE UM ARQUIVO EM JAVA
+	-> COMO LER CARACTERES DE UM ARQUIVO EM JAVA
+		Crie um arquivo "file.txt" e o coloque dentro das pastas src e bin.
+			Escreva qualquer coisa.
+		
+		Acessando o arquivo:
+			FileInputStream entrada = new FileInputStream("pastas_ata_arq/file.txt");
+		
+		Fazendo o java 'ler' o arquivo:
+			InputStreamReader entradaFormatada = new InputStreamReader(entrada);
+		
+		Exibindo o primeiro caracter:
+			int c = entradaFormatada.read();
+			System.out.println(c); //imprime o valor numérico referente ao texto
+			//para imprimir a letra, fazer casting em char.
+		
+		Lendo um texto:
+			No final do arquivo o read() retorna -1, então pode-se usar um looping
+			para ler um texto.
+			
+			while (c != -1){
+				System.out.println ( (char)c);
+				c = entradaFormatada.read();
+			}
+			
+---- LENDO STRINGS DE UM ARQUIVO EM JAVA
+		Para isso usaremos a classe BufferedReader que recebe como argumento um objetos	]
+	do tipo InputStreamReader e agrupa os caracteres até formar uma linha.
+
+	Código:
+		FileInputStream entrada = new FileInputStream("file.txt");
+		InputStreamReader entradaFormatada = new InputStreamReader(entrada);
+		//AQUI A PARTE NOVA:
+		BufferedReader entradaString = new BufferedReader(entradaFormatada);
+		
+		String linha = entradaString.readLine();
+		
+		while (linha != null){
+			Sytem.out.println (linha);
+			linha = entradaString.readLine();
+		}
+
+---- COMO LER BYTES DE UM ARQUIVO EM JAVA
+	
+	Código:
+		public static void main(String[] args) throws IOException{
+			InputStream entrada = new FileInputStream("file.txt");
+			int umByte = entrada.read();
+	    
+			while(umByte != -1){
+				System.out.print((char)umByte);
+				umByte = entrada.read();
+			}
+		}
+	
+		Como retorno irá mostrar o valor numérico daquele byte, se quiser o valor 
+	original usar o casting.
+
+	
+---- FECHANDO ARQUIVOS - O MÉTODO CLOSE()
+		Para fechar o arquivo e evitar o armazenamento de lixo, usa-se:
+			variavel.close();
+		
+	Ex: entrada.close();
+	
+
+---- CLASSE FILE EM JAVA
+	
+	ALGUNS MÉTODOS DA CLASSE FILE:
+		-> boolean canRead(): 
+				Retorna true se for possível ler o arquivo e false caso contrário
+		
+		-> boolean exists():
+				Retorna true caso o objeto File exista.
+				
+		-> boolean isFile():
+				Retorna true se o argumento passado ao construtor for um arquivo
+		
+		-> boolean isDirectory():
+				Retorna true se o argumento passado ao construtor for diretório
+		
+		-> boolean isAbsolute():
+				Retorna true se o argumento passado ao construtor é um caminho absoluto
+		
+		-> String getAbsolutePath():
+				retorna uma string com o caminho absoluto do arquivo/diretório
+				
+		-> String getName():
+				Retorna uma string com o nome do arquivo/diretório
+				
+		-> String getPath():
+				Retorna uma String com o caminho do arquivo/diretório
+		
+		-> String getParent():
+				Retorna uma String com o caminho do diretório pai(acima, anterior)
+		
+		-> long lenght():
+				Retorna o tamanho, em bytes, do arquivo ou inexistente caso seja dir
+	
+		-> long Modified():
+				Retorna o tempo em que o arq/dir foi modificado pela ultima vez
+	
+		-> String[] list():
+				Retorna um array de Strings com o conteúdo do dir, ou null se for arq
+	
+	
+---- CLASSE FORMATTER (ESCREVENDO EM ARQUIVOS)
+	
+	CRIANDO UM ARQUIVO DE TEXTO
+		
+	
+	import java.util.Formatter;
+	import java.util.NoSuchElementException;
+	import java.util.FormatterClosedException;
+	import java.lang.SecurityException;
+	import java.io.FileNotFoundException;
+
+
+	public class EscreverMetodos
+	{
+		private Formatter arquivo;
+
+			public void abrir()
+			{
+				try
+				{
+					arquivo = new Formatter("ProgramacaoProgressiva.txt");
+				}
+				catch( SecurityException semPermissao)
+				{
+					System.err.println(" Sem permissao para escrever no arquivo ");
+					System.exit(1); //exit(0) é sucesso, outro número significa que terminou com problemas
+				}
+				catch( FileNotFoundException arquivoInexistente )
+				{
+					System.err.println(" Arquivo inexistente ou arquivo não pode ser criado");
+					System.exit(1);
+				}
+			}
+         
+			public void escrever()
+			{
+				try
+				{
+					arquivo.format("Escrita no arquivo realizada com sucesso");
+				}
+				catch(FormatterClosedException formatoDesconhecido)
+				{
+							System.err.println("Erro ao escrever");
+							return;
+				}
+				catch(NoSuchElementException excecaoElemento)
+				{
+					System.err.println("Entrada invalida. Por exemplo, era pra ser uma string, mas foi um inteiro");
+				}
+         
+			}
+     
+			public void fechar()
+			
+				arquivo.close();
+			}
+	}	
+	
+	
+---- CLASSE SCANNER: LENDO E RECEBENDO DADOS DE ARQUIVOS
+	
+	LENDO DE UM ARQUIVO:
+		Scanner entrada = new Scanner ( new File ("teste.txt"));
+		while( entrada.hasNext() )          
+			System.out.printf("%s - %d\n",entrada.next(), entrada.nextInt());
+	
+	
+	CÓDIGO:
+		
+import java.io.File;
+import java.util.Scanner;
+import java.lang.IllegalStateException;
+import java.util.NoSuchElementException;
+import java.io.FileNotFoundException;
+
+public class LendoMetodos
+{
+    private Scanner entrada;
+ 
+    public void abrir()
+    {
+        try
+        {
+            entrada = new Scanner( new File("teste.txt") );
+        }
+        catch(FileNotFoundException arquivoNaoEncontrado)
+        {
+            System.err.println("Nao foi possível abrir o arquivo! Não encontrado!");
+            System.exit(1); //saída de erro
+        }
+    }
+ 
+    public void ler()
+    {
+        try
+        {
+            while( entrada.hasNext() )          
+                System.out.printf("%s - %d\n",entrada.next(), entrada.nextInt());
+        }
+        catch(NoSuchElementException entradaDiferente)
+        {
+            System.err.println("Entrada diferente da esperada");
+            entrada.close();
+            System.exit(1);
+        }
+        catch(IllegalStateException erroLeitura)
+        {
+            System.err.println("Erro de leitura. Scanner foi fechada antes da input");
+            System.exit(1);
+        }
+    }
+ 
+    public void fechar()
+    {
+        entrada.close();
+    }
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
